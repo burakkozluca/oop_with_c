@@ -5,7 +5,7 @@
 
 struct TAKTIK
 {
-    int (*Savas)(void); //0-1000 arası değer döndüreceği için int tanımladık.
+    int (*Savas)(); //0-1000 arası değer döndüreceği için int tanımladık.
 };
 typedef struct TAKTIK* Taktik;
 
