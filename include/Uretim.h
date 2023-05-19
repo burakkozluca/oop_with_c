@@ -1,8 +1,12 @@
 #ifndef URETIM_H
-#define URETIM_H
+# define URETIM_H
 
-typedef struct Uretim {
+# include <unistd.h>
+
+struct URETIM 
+{
     int (*Uret)();
-} Uretim; //typedef tanımlaması burada yapabilirsin
+};
+typedef struct URETIM* Uretim;
 
 #endif

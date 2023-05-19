@@ -1,12 +1,14 @@
 #ifndef ATAKTIK_H
-#define ATAKTIK_H
+# define ATAKTIK_H
 
-#include "Taktik.h"
+# include "Taktik.h"
 
-typedef struct ATaktik {
-    Taktik taktik;
+struct ATAKTIK 
+{
+    Taktik taktik; //taktik sınıfından kalıtım
     // ATaktik'e özel eklemeler
     //int agresiflik; mesela
-} ATaktik; //typedef tanımlamasını burada yapabilirsin
+};
+typedef struct ATAKTIK* ATaktik;
 
 #endif

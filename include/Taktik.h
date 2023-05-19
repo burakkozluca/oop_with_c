@@ -1,7 +1,7 @@
 #ifndef TAKTIK_H
-#define TAKTIK_H
+# define TAKTIK_H
 
-#include <unistd.h>
+# include <unistd.h>
 
 struct TAKTIK
 {
