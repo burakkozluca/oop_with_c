@@ -13,9 +13,12 @@
 struct OYUN
 {
     Koloni koloni[50];
+    int tur;
 };
 typedef struct OYUN* Oyun;
 
 char	**ft_split(char const *str, char c);
+void    screen(int tur, int i, Oyun yeniOyun);
+void    yenioyun(char **token);
 
 #endif
