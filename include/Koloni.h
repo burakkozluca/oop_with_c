@@ -16,5 +16,6 @@ struct KOLONI
 typedef struct KOLONI* Koloni;
 
 Koloni YeniKoloni(int populasyon);
+Koloni Durumguncelle(Koloni this, int populasyon, int yemek);
 
 #endif

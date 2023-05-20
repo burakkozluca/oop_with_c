@@ -96,8 +96,8 @@ char	**ft_split(char const *str, char c)
 	return (ret);
 }
 
-int main() 
-{   
+int main()
+{
     char str[100];
     char **token;
 

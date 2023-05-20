@@ -6,7 +6,6 @@
 # include "BTaktik.h"
 # include "Taktik.h"
 # include "Uretim.h"
-//uretim h file ekle
 # include <stdio.h>
 # include <unistd.h>
 

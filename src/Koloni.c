@@ -13,3 +13,10 @@ Koloni YeniKoloni(int populasyon)
     this->kaybetme = 0;
     return this;
 }
+
+Koloni Durumguncelle(Koloni this, int populasyon, int yemek)
+{
+    this->populasyon += populasyon * 0.2;
+    this->yemek -= populasyon * 2;
+}
+
