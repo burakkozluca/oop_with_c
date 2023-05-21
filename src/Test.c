@@ -5,7 +5,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../include/Koloni.h"
+#include <time.h>
 
+//char* uzunlugu bulma
 size_t	ft_strlen(const char *str)
 {
 	size_t	a;
@@ -71,6 +73,7 @@ int	ft_charcounter(const char *str, char c)
 	return (i);
 }
 
+//diziyi ayırma fonksiyonu
 char	**ft_split(char const *str, char c)
 {
 	char	**ret;
@@ -101,10 +104,11 @@ int main()
     char str[100];
     char **token;
 
-    fgets(str, 100, stdin); //kullanıcı girisi
-    token = ft_split(str, ' ');
+	srand(time(NULL)); //rastgele sayi uretimi icin tohum
+    fgets(str, 100, stdin); //kullanici girdisi
+    token = ft_split(str, ' '); //kullanici girdisini bosluklara gore ayirma
 
-    yenioyun(token);
+    yenioyun(token); //koloni simulasyonumuz
 
     return (0);
 }

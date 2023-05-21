@@ -7,7 +7,9 @@ derle:
 	gcc -I ./include/ -o ./lib/Oyun.o -c ./src/Oyun.c
 	gcc -I ./include/ -o ./lib/Ataktik.o -c ./src/Ataktik.c
 	gcc -I ./include/ -o ./lib/Btaktik.o -c ./src/Btaktik.c
-	gcc -I ./include/ -o ./bin/Test ./lib/Taktik.o ./lib/Uretim.o ./lib/Koloni.o ./lib/Oyun.o ./lib/Ataktik.o ./lib/Btaktik.o ./src/Test.c
+	gcc -I ./include/ -o ./lib/AUretim.o -c ./src/AUretim.c
+	gcc -I ./include/ -o ./lib/BUretim.o -c ./src/BUretim.c
+	gcc -I ./include/ -o ./bin/Test ./lib/Taktik.o ./lib/Uretim.o ./lib/Koloni.o ./lib/Oyun.o ./lib/Ataktik.o ./lib/AUretim.o ./lib/BUretim.o ./lib/Btaktik.o ./src/Test.c
 
 calistir:
 	./bin/Test

@@ -11,6 +11,6 @@ struct TAKTIK
     int savasdegeri;
 };
 typedef struct TAKTIK* Taktik;
-
 Taktik constructor();
+
 #endif

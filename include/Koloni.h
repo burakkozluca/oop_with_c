@@ -14,7 +14,6 @@ struct KOLONI
     int kaybetme;
 };
 typedef struct KOLONI* Koloni;
-
 Koloni YeniKoloni(int populasyon);
 Koloni Durumguncelle(Koloni this, int populasyon, int yemek);
 

@@ -1,4 +1,10 @@
-#include "Uretim.h"
-#include <stdlib.h> // rand ve srand için
-#include <time.h> // time için
+#include "../include/Uretim.h"
+
+//Uretim constructor
+Uretim uconstructor()
+{
+    Uretim this;
+    this = (Uretim)malloc(sizeof(struct URETIM));
+    return this;
+}
 

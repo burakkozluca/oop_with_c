@@ -1,5 +1,6 @@
 #include "../include/BTaktik.h"
 
+//BTaktik constructor
 BTaktik btbelirle(int populasyon, int yemek)
 {
     BTaktik this;
@@ -11,6 +12,7 @@ BTaktik btbelirle(int populasyon, int yemek)
     this->super->Savas = &bsavas;
 }
 
+//BTaktik destructor
 void bdestructor(BTaktik this)
 {
     free(this);

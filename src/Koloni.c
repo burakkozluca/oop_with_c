@@ -1,7 +1,7 @@
 #include "../include/Koloni.h"
 #include <stdlib.h>
 
-// Koloni oluşturucu fonksiyon
+//Koloni constructor
 Koloni YeniKoloni(int populasyon)
 {
     Koloni this = (Koloni) malloc(sizeof(struct KOLONI));
@@ -14,6 +14,7 @@ Koloni YeniKoloni(int populasyon)
     return this;
 }
 
+//Koloni constructor
 Koloni Durumguncelle(Koloni this, int populasyon, int yemek)
 {
     this->populasyon += populasyon * 0.2;

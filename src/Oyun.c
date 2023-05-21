@@ -19,7 +19,6 @@ void yenioyun(char **token)
         i++;
     }
     screen(yeniOyun->tur, i, yeniOyun);
-    yeniOyun->tur++;
     i = 0;
     do
     {
@@ -27,7 +26,7 @@ void yenioyun(char **token)
     {
         if(yeniOyun->koloni[i]->dead > 0)
         {
-            //uret function
+            //uretim fonskiyonu
             Durumguncelle(yeniOyun->koloni[i],yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i++]->yemek);
         }
     }
@@ -89,7 +88,10 @@ void yenioyun(char **token)
         yeniOyun->tur++;
         screen(yeniOyun->tur, i, yeniOyun);
         if (!check(yeniOyun, token) || countAliveColonies(yeniOyun, token) <= 1)
+        {    
+            printf("-------------------------------------------------------------\n");
             break;
+        }
     } while (1);
     
 }
@@ -105,9 +107,9 @@ void screen(int tur, int i, Oyun yeniOyun)
     while(j < i)
     {
         if(yeniOyun->koloni[j]->dead == 1)
-            printf("%4c %11d %15d %11d %10d %5d\n",yeniOyun->koloni[j]->sembol, yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek, yeniOyun->koloni[j]->kazanma, yeniOyun->koloni[j]->kaybetme, yeniOyun->koloni[j]->dead);
+            printf("%4c %11d %15d %11d %10d \n",yeniOyun->koloni[j]->sembol, yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek, yeniOyun->koloni[j]->kazanma, yeniOyun->koloni[j]->kaybetme);
         else
-            printf("--    --    --      --     --    --\n"); //düzelt
+            printf("%4s %11s %15s %11s %10s \n","--","--","--","--","--");
         j++;
     }
 }

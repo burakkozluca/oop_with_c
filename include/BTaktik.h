@@ -13,7 +13,6 @@ struct BTAKTIK
     void (*destructor)(struct BTAKTIK*);
 };
 typedef struct BTAKTIK* BTaktik;
-
 void bdestructor(BTaktik this);
 BTaktik btbelirle(int populasyon, int yemek);
 int bsavas();

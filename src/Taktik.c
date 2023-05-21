@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "../include/Taktik.h"
 
+//Taktik constructor
 Taktik constructor()
 {
     Taktik this;

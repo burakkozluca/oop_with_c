@@ -13,7 +13,6 @@ struct ATAKTIK
     void (*destructor)(struct ATAKTIK*);
 };
 typedef struct ATAKTIK* ATaktik;
-
 void adestructor(ATaktik this);
 ATaktik atbelirle(int populasyon, int yemek);
 int asavas();

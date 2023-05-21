@@ -1,5 +1,6 @@
 #include "../include/ATaktik.h"
 
+//ATaktik constructor
 ATaktik atbelirle(int populasyon, int yemek)
 {
     ATaktik this;
@@ -11,6 +12,7 @@ ATaktik atbelirle(int populasyon, int yemek)
     this->super->Savas = &asavas;
 }
 
+//ATaktik destructor
 void adestructor(ATaktik this)
 {
     free(this);
