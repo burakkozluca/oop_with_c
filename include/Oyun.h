@@ -19,5 +19,7 @@ typedef struct OYUN* Oyun;
 char	**ft_split(char const *str, char c);
 void    screen(int tur, int i, Oyun yeniOyun);
 void    yenioyun(char **token);
+int check(Oyun oyun, char **token);
+int countAliveColonies(Oyun yeniOyun, char **token);
 
 #endif

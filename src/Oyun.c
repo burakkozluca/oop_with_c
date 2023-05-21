@@ -21,6 +21,8 @@ void yenioyun(char **token)
     screen(yeniOyun->tur, i, yeniOyun);
     yeniOyun->tur++;
     i = 0;
+    do
+    {
     while (token[i])
     {
         if(yeniOyun->koloni[i]->dead > 0)
@@ -34,6 +36,8 @@ void yenioyun(char **token)
     int j = 1;
     while(token[i]) //i -1 dememiz gerekebilir cünkü mücadele olacak
     {
+        //printf("%d",i);
+        j = i + 1;
         while(token[j])
         {
             if(yeniOyun->koloni[j]->dead > 0 && yeniOyun->koloni[j]->yemek > 0 && yeniOyun->koloni[i]->dead > 0 && yeniOyun->koloni[i]->yemek > 0)
@@ -71,52 +75,26 @@ void yenioyun(char **token)
                     yeniOyun->koloni[j]->kaybetme += 1;
                     yeniOyun->koloni[j]->populasyon -= yeniOyun->koloni[j]->populasyon * (b - a) / 1000;
                 }
+                
+                if(yeniOyun->koloni[i]->populasyon <= 1 || yeniOyun->koloni[i]->yemek <= 1)
+                    yeniOyun->koloni[i]->dead = 0;
+                if(yeniOyun->koloni[j]->populasyon <= 1 || yeniOyun->koloni[j]->yemek <= 1)
+                    yeniOyun->koloni[j]->dead = 0;
             }
             j++;
         }
         i++;
-        if(token[i] == NULL)
-        {
-            i = 0;
-            int hayattaKalanKoloniSayisi = 0;
-            while (token[i])
-            {
-                printf("%d",i);
-
-                int boolhayat = 0;
-                if (yeniOyun->koloni[i]->dead > 0)
-                {
-                    printf("burak");
-                    boolhayat = 1;
-                    break;
-                }
-                if (!boolhayat)
-                {
-                    hayattaKalanKoloniSayisi++;
-                    if (hayattaKalanKoloniSayisi > 1)
-                    {
-                        printf("yarıs bitmedi\n");
-                        // Birden fazla koloni hayatta kalamaz, istenilen durum sağlanmadı.
-                        break;
-                    }
-                }
-                i++;
-            }
-
-            if (hayattaKalanKoloniSayisi == 1)
-            {
-            // Sadece bir koloni hayatta kaldı.
-            // İstenilen durum sağlandı.
-            }
-            else
-            {
-                // Birden fazla koloni hayatta kaldı veya hiç koloni hayatta kalmadı.
-                // İstenilen durum sağlanmadı.
-            }
-        }
     }
-    screen(yeniOyun->tur, i, yeniOyun);
+        
+        yeniOyun->tur++;
+        screen(yeniOyun->tur, i, yeniOyun);
+        if (!check(yeniOyun, token) || countAliveColonies(yeniOyun, token) <= 1)
+            break;
+    } while (1);
+    
 }
+
+
 
 void screen(int tur, int i, Oyun yeniOyun)
 {
@@ -129,7 +107,52 @@ void screen(int tur, int i, Oyun yeniOyun)
         if(yeniOyun->koloni[j]->dead == 1)
             printf("%4c %11d %15d %11d %10d %5d\n",yeniOyun->koloni[j]->sembol, yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek, yeniOyun->koloni[j]->kazanma, yeniOyun->koloni[j]->kaybetme, yeniOyun->koloni[j]->dead);
         else
-            printf("--    --    --      --     --    --"); //düzelt
+            printf("--    --    --      --     --    --\n"); //düzelt
         j++;
     }
+}
+
+int check(Oyun yeniOyun, char **token)
+{
+        int i = 0;
+        int hayattaKalanKoloniSayisi = 0;
+        int boolhayat = 0;
+        int returnvalue = 0;
+        while (token[i])
+        {
+            
+            if (yeniOyun->koloni[i]->dead > 0)
+            {
+                //printf("burak");
+                boolhayat = 1;
+            }
+            if (boolhayat)
+            {
+                hayattaKalanKoloniSayisi++;
+                if (hayattaKalanKoloniSayisi > 1)
+                {
+                    boolhayat = 0;
+                    returnvalue = 1;
+                    // Birden fazla koloni hayatta kalamaz, istenilen durum sağlanmadı.
+                    break;
+                }
+                else
+                {
+                    returnvalue = 0;
+                }
+            }
+            i++;
+        }
+        return(returnvalue);
+}
+
+int countAliveColonies(Oyun yeniOyun,char **token)
+{
+    int count = 0;
+    for (int i = 0; token[i]; i++) {
+        if (yeniOyun->koloni[i]->dead > 0) {
+            count++;
+        }
+    }
+    return count;
 }
