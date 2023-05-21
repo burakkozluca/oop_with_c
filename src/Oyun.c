@@ -1,93 +1,82 @@
-// Oyun.c
 #include "../include/Oyun.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include "../include/Koloni.h"
-#include "../include/ATaktik.h"
-#include "../include/BTaktik.h"
 
 void yenioyun(char **token)
 {
-    Oyun yeniOyun = (Oyun)malloc(sizeof(struct OYUN));
+    Oyun yeniOyun = (Oyun)malloc(sizeof(struct OYUN)); //simulasyon icin yer acildi.
     yeniOyun->tur = 0;
     int i = 0;
     int sayi = 0;
 
-    while (token[i]) {
-        sayi = atoi(token[i]);
-        yeniOyun->koloni[i] = YeniKoloni(sayi); //koloni oluşturma
+    while (token[i]) //girilen sayi kadar koloni olusturma
+    {
+        sayi = atoi(token[i]); //girilen sayilari int'e cevirme
+        yeniOyun->koloni[i] = YeniKoloni(sayi); //koloni olusturma
         i++;
     }
-    screen(yeniOyun->tur, i, yeniOyun);
+    screen(yeniOyun->tur, i, yeniOyun); //0. tu ekrana yazdirildi.
     i = 0;
-    do
+    
+    do //sona bir tane koloni kalana kadar devam eden do-while dongusu
     {
-    while (token[i])
-    {
-        if(yeniOyun->koloni[i]->dead > 0)
+        while (token[i])
         {
-            //uretim fonskiyonu
-            Durumguncelle(yeniOyun->koloni[i],yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i++]->yemek);
-        }
-    }
-    i = 0;
-    //mucadele while
-    int j = 1;
-    while(token[i]) //i -1 dememiz gerekebilir cünkü mücadele olacak
-    {
-        //printf("%d",i);
-        j = i + 1;
-        while(token[j])
-        {
-            if(yeniOyun->koloni[j]->dead > 0 && yeniOyun->koloni[j]->yemek > 0 && yeniOyun->koloni[i]->dead > 0 && yeniOyun->koloni[i]->yemek > 0)
+            if(yeniOyun->koloni[i]->dead > 0)
             {
-                ATaktik ataktik = atbelirle(yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i]->yemek);
-                BTaktik btaktik = btbelirle(yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i]->yemek);
-                ATaktik ataktik1 = atbelirle(yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek);
-                BTaktik btaktik1 = btbelirle(yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek);
-                int a = asavas();
-                int b = bsavas();
-                
-                // if(rand() % 2 == 0)
-                // {
-                //     ataktik->super->savasdegeri = a;
-                //     btaktik->super->savasdegeri = b;
-                // }
-                // else
-                // {
-                //     ataktik1->super->savasdegeri = a;
-                //     btaktik1->super->savasdegeri = b;
-                // }
-                if(a > b)
-                {
-                    yeniOyun->koloni[i]->yemek += yeniOyun->koloni[j]->yemek * 0.1;
-                    yeniOyun->koloni[i]->kazanma += 1;
-                    yeniOyun->koloni[j]->yemek -= yeniOyun->koloni[j]->yemek * (a - b) / 1000;
-                    yeniOyun->koloni[j]->kaybetme += 1;
-                    yeniOyun->koloni[j]->populasyon -= yeniOyun->koloni[j]->populasyon * (a - b) / 1000;
-                }
-                if(b > a)
-                {
-                    yeniOyun->koloni[i]->yemek += yeniOyun->koloni[j]->yemek * 0.1;
-                    yeniOyun->koloni[i]->kazanma += 1;
-                    yeniOyun->koloni[j]->yemek -= yeniOyun->koloni[j]->yemek * (b - a) / 1000;
-                    yeniOyun->koloni[j]->kaybetme += 1;
-                    yeniOyun->koloni[j]->populasyon -= yeniOyun->koloni[j]->populasyon * (b - a) / 1000;
-                }
-                
-                if(yeniOyun->koloni[i]->populasyon <= 1 || yeniOyun->koloni[i]->yemek <= 1)
-                    yeniOyun->koloni[i]->dead = 0;
-                if(yeniOyun->koloni[j]->populasyon <= 1 || yeniOyun->koloni[j]->yemek <= 1)
-                    yeniOyun->koloni[j]->dead = 0;
+                //uretim fonskiyonu
+                Durumguncelle(yeniOyun->koloni[i],yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i++]->yemek);
             }
-            j++;
         }
-        i++;
-    }
-        
+        i = 0;
+        int j = 1;
+
+        while(token[i])
+        {
+
+            j = i + 1;
+            while(token[j])
+            {
+                //koloni hayattaysa ve yemekleri bitmediyse
+                if(yeniOyun->koloni[j]->dead > 0 && yeniOyun->koloni[j]->yemek > 0 && yeniOyun->koloni[i]->dead > 0 && yeniOyun->koloni[i]->yemek > 0)
+                {
+                    //taktik olusturma
+                    ATaktik ataktik = atbelirle(yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i]->yemek);
+                    BTaktik btaktik = btbelirle(yeniOyun->koloni[i]->populasyon, yeniOyun->koloni[i]->yemek);
+                    ATaktik ataktik1 = atbelirle(yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek);
+                    BTaktik btaktik1 = btbelirle(yeniOyun->koloni[j]->populasyon, yeniOyun->koloni[j]->yemek);
+                    //savas fonksiyonlari cagirildi.
+                    int a = asavas();
+                    int b = bsavas();
+
+                    //savas degeri kimin buyukse ona gore degerleri guncellendi.
+                    if(a > b)
+                    {
+                        yeniOyun->koloni[i]->yemek += yeniOyun->koloni[j]->yemek * 0.1;
+                        yeniOyun->koloni[i]->kazanma += 1;
+                        yeniOyun->koloni[j]->yemek -= yeniOyun->koloni[j]->yemek * (a - b) / 1000;
+                        yeniOyun->koloni[j]->kaybetme += 1;
+                        yeniOyun->koloni[j]->populasyon -= yeniOyun->koloni[j]->populasyon * (a - b) / 1000;
+                    }
+                    if(b > a)
+                    {
+                        yeniOyun->koloni[i]->yemek += yeniOyun->koloni[j]->yemek * 0.1;
+                        yeniOyun->koloni[i]->kazanma += 1;
+                        yeniOyun->koloni[j]->yemek -= yeniOyun->koloni[j]->yemek * (b - a) / 1000;
+                        yeniOyun->koloni[j]->kaybetme += 1;
+                        yeniOyun->koloni[j]->populasyon -= yeniOyun->koloni[j]->populasyon * (b - a) / 1000;
+                    }
+                    //yemekleri ve populasyonlari bittiyse koloni oluyor.
+                    if(yeniOyun->koloni[i]->populasyon <= 1 || yeniOyun->koloni[i]->yemek <= 1)
+                        yeniOyun->koloni[i]->dead = 0;
+                    if(yeniOyun->koloni[j]->populasyon <= 1 || yeniOyun->koloni[j]->yemek <= 1)
+                        yeniOyun->koloni[j]->dead = 0;
+                }
+                j++;
+            }
+            i++;
+        } 
         yeniOyun->tur++;
-        screen(yeniOyun->tur, i, yeniOyun);
-        if (!check(yeniOyun, token) || countAliveColonies(yeniOyun, token) <= 1)
+        screen(yeniOyun->tur, i, yeniOyun); //ekrana bilgileri yazdir.
+        if (!check(yeniOyun, token) || countAliveColonies(yeniOyun, token) <= 1) //1 tane koloni kaldiyse donguyu sonlandir.
         {    
             printf("-------------------------------------------------------------\n");
             break;
@@ -124,10 +113,7 @@ int check(Oyun yeniOyun, char **token)
         {
             
             if (yeniOyun->koloni[i]->dead > 0)
-            {
-                //printf("burak");
                 boolhayat = 1;
-            }
             if (boolhayat)
             {
                 hayattaKalanKoloniSayisi++;
@@ -135,7 +121,6 @@ int check(Oyun yeniOyun, char **token)
                 {
                     boolhayat = 0;
                     returnvalue = 1;
-                    // Birden fazla koloni hayatta kalamaz, istenilen durum sağlanmadı.
                     break;
                 }
                 else
